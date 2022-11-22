@@ -1,0 +1,2 @@
+class SalesManager < Employee
+end

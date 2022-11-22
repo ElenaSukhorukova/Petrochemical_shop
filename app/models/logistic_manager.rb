@@ -1,0 +1,2 @@
+class LogisticManager < Employee
+end

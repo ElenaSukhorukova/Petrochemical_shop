@@ -1,0 +1,2 @@
+class SupplyManager < Employee
+end
