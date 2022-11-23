@@ -1,0 +1,2 @@
+class ContainerProduct < ApplicationRecord
+end
