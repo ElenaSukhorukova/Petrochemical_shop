@@ -1,0 +1,2 @@
+class OwnCompanyResident < CompanyResident
+end
