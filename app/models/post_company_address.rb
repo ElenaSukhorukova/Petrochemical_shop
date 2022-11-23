@@ -1,0 +1,2 @@
+class PostCompanyAddress < CompanyAddress
+end
