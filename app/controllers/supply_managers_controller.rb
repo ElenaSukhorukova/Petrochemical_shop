@@ -1,2 +1,0 @@
-class SupplyManagersController < ApplicationController
-end
