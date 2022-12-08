@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset='utf-8'>
-    <title>PetrochemicalShop</title>
+    <title><%= full_title(yield(:page_title)) %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -16,9 +16,39 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <div class='wrapper'>
+      <%= yield :main_menu %>
+    
+      <div class='container content'>
+        <div class='row row-cols-2'>
+          
+        <% if user_signed_in? %>
+          <div class='col-3'>
+            <%= yield define_menu %>
+          </div>
+        <% end %>
 
-    <%= yield %>
+          <div class='col-9'>
+            <main class='container mt-5 ms-5'>   
+              <% flash.each do |type, msg| %>    
+                <!-- Change flash messages of devise to bootstrap format -->
+                <% case type %>
+                  <% when 'alert'%>
+                    <% type = 'danger' %>
+                  <% when 'notice' %>
+                    <% type = 'success' %>
+                  <% end %>
+                          
+              <%= tag.div msg, class: "alert alert-#{type} text-center", role: 'alert' %>
+              <% end %>
+              
+              <%= yield %>
+            </main>
+          </div>
+        </div>
+      </div>
+
+      <%= render 'layouts/footer' %>
+    </div>
   </body>
 </html>
