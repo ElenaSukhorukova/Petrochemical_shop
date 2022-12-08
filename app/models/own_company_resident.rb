@@ -1,2 +1,0 @@
-class OwnCompanyResident < CompanyResident
-end
