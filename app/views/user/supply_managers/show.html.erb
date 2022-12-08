@@ -1,0 +1,7 @@
+<section>
+  <% provide :page_title, i18n_model_name(@supply_manager) %>
+  <% currently_at t('navbar.profile', user: current_user.employee.full_name) %>
+
+  <%= render partial: 'user/employees/employee', locals: { employee: @supply_manager, 
+    edit_path: edit_supply_manager_path(@supply_manager), delete_path: supply_manager_path(@supply_manager) } %>
+</section>

@@ -1,0 +1,40 @@
+<h1 class='my-4'><%= t('navbar.profile', user: current_user.employee.full_name) %></h1>
+<p>
+  <strong><%= attribute_model(employee, :full_name) %>&nbsp;</strong>
+  <%= employee.full_name %>
+</p>
+<p>
+  <strong><%= attribute_model(employee, :date_birthday) %>&nbsp;</strong>
+  <%= I18n.l(employee.date_birthday, format: '%d %B %Y') %>
+</p>
+<p>
+  <strong><%= attribute_model(employee.department, :department) %>&nbsp;</strong>
+  <%= employee.department.name_department %>
+</p>
+<p>
+  <strong><%= attribute_model(employee, :type) %>&nbsp;</strong>
+  <%= employee.type %>
+</p>
+<p>
+  <strong><%= attribute_model(employee, :personal_phone_number) %>&nbsp;</strong>
+  <%= employee.personal_phone_number %>
+</p>
+<p>
+  <strong><%= attribute_model(employee, :work_phone_number) %>&nbsp;</strong>
+  <%= employee.work_phone_number %>
+  <strong><%= attribute_model(employee, :additional_number) %>&nbsp;</strong>
+  <%= employee.additional_number %>
+</p>
+<p>
+  <strong><%= attribute_model(employee, :about) %>&nbsp;</strong>
+  <%= employee.about %>
+</p>
+<% if current_user.employee == employee %>
+  <div class="btn-group mt-2" role="group">
+    <%= link_to t('link.edit', model: i18n_model_name(employee).downcase), 
+      edit_path, class: "btn btn-outline-dark me-2" %>
+    <%= button_to t('submit.delete', model: i18n_model_name(employee).downcase), 
+      delete_path, method: :delete, class: "btn btn-outline-dark me-2", 
+      :onclick => "return confirm('Are you sure?')", :remote => true %>
+  </div>
+<% end %>

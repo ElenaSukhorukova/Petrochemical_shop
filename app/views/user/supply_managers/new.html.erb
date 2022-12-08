@@ -1,0 +1,9 @@
+<section class='col-7'>
+  <% provide :page_title, t('page.new', model: i18n_model_name(@supply_manager).downcase) %>
+  <% currently_at t('navbar.new_profile', user: i18n_model_name(@supply_manager).downcase) %>
+
+  <%= render partial: 'shared/go_back_button', locals: { path: root_path } %>
+  <h1 class='md-4'><%= t('page.new', model: i18n_model_name(@supply_manager).downcase) %></h1>
+  <%= render partial: 'user/employees/form',  locals: { model: @supply_manager, method: :post, 
+    submit: t('submit.create', model: i18n_model_name(@supply_manager).downcase) } %>
+</section>
