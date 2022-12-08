@@ -1,0 +1,13 @@
+<%= simple_form_for model, method: method do |f| %>
+  <%= f.label :resident %>
+  <%= f.collection_radio_buttons :resident, [[true, 'Yes'], [false, 'No']], :first, :last,
+                                  input_html: { class: 'my-2 px-2'} %>
+  <%= f.input :bank_name, input_html: { class: 'my-2'} %>
+  <%= f.input :correspondent_account_number, input_html: { class: 'my-2' } %>
+  <%= f.input :bik, input_html: { class: 'my-2' } %>
+  <%= f.input :iban, input_html: { class: 'my-2' } %>
+  <%= f.input :swift, input_html: { class: 'my-2' } %>
+	<%= f.button :submit, submit, class: 'btn btn-outline-primary my-2' %>
+	<%= render partial: 'shared/cancel_button', 
+    locals: { path: path } if f.object.persisted? %>
+<% end %>

@@ -1,0 +1,84 @@
+<section>
+  <% provide :page_title, i18n_model_name(@bank_residents, count: 2) %>
+  <% currently_at %>
+
+  <h1 class='my-4'><%= i18n_model_name(@bank_residents, count: 2) %></h1>
+  <% if @bank_residents.try(:any?) %>
+    <% if %w[cheif client logistic\ manager sales\ manager supply\ manager].include?(current_user.role) %>
+      <p>
+        <%= link_to t('link.add_new', model: i18n_model_name(Bank.new).downcase), 
+          new_bank_path, class: 'btn btn-outline-primary my-2' %>
+      </p>
+    <% end %>
+    <section>
+      <h2 class='my-4'><%= attribute_model(@bank_residents.last, :residents) %></h2>
+      <table id='customers'>
+        <thead>
+          <tr>
+            <th><%= attribute_model(@bank_residents.last, :bank_name) %></th>
+            <th><%= attribute_model(@bank_residents.last, :correspondent_account_number) %></th>
+            <th><%= attribute_model(@bank_residents.last, :bik) %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @bank_residents.each do |bank| %>
+            <tr>
+              <td><%= bank.bank_name %></td>
+              <td><%= bank.correspondent_account_number %></td>
+              <td><%= bank.bik %></td>
+              <td>
+                <% if %w[cheif client logistic\ manager sales\ manager supply\ manager].include?(current_user.role) %>
+                  <div class="btn-group mt-2" role="group">
+                    <%= link_to t('submit.simple_edit'), edit_bank_path(bank), 
+                      class: "btn btn-outline-primary me-2 btn-sm" %>
+                    <%= button_to t('submit.simple_delete'), bank_path(bank), 
+                      method: :delete, class: "btn btn-outline-primary me-2 btn-sm", 
+                      :onclick => "return confirm('Are you sure?')", :remote => true %>
+                  </div>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </section>
+    <% if @bank_not_residents.try(:any?) %>    
+      <section>
+        <h2 class='my-4'><%= attribute_model(@bank_not_residents.last, :not_residents) %></h2>
+        <table id='customers'>
+          <thead>
+            <tr>
+              <th><%= attribute_model(@bank_not_residents.last, :bank_name) %></th>
+              <th><%= attribute_model(@bank_not_residents.last, :swift) %></th>
+              <th><%= attribute_model(@bank_not_residents.last, :iban) %></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @bank_not_residents.each do |bank| %>
+              <tr>
+                <td><%= bank.bank_name %></td>
+                <td><%= bank.iban %></td>
+                <td><%= bank.swift %></td>
+                <td>
+                  <% if %w[cheif client logistic\ manager sales\ manager supply\ manager].include?(current_user.role) %>
+                    <div class="btn-group mt-2" role="group">
+                      <%= link_to t('submit.simple_edit'), edit_bank_path(bank), 
+                        class: "btn btn-outline-dark me-2 btn-sm" %>
+                      <%= button_to t('submit.simple_delete'), bank_path(bank), 
+                        method: :delete, class: "btn btn-outline-dark me-2 btn-sm", 
+                        :onclick => "return confirm('Are you sure?')", :remote => true %>
+                    </div>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </section>
+    <% end %>
+  <% else %>
+    <%= render 'blank' %>
+  <% end %>
+</section>

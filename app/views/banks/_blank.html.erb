@@ -1,0 +1,9 @@
+<p>
+  <%= t('page.blank', model: i18n_model_name(Bank.new).downcase) %>
+  <% if %w[cheif client logistic\ manager sales\ manager supply\ manager].include?(current_user.role) %>
+    <p>
+      <%= link_to t('link.add_new', model: i18n_model_name(Bank.new).downcase), 
+        new_bank_path, class: 'btn btn-outline-primary my-2' %>
+    </p>
+  <% end %>
+</p>
