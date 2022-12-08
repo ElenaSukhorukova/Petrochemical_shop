@@ -1,0 +1,16 @@
+<%= simple_form_for model, method: method, multiple: true do |f| %>
+  <%= f.input :name, input_html: { class: 'my-2'} %>
+  <%= f.input :description, input_html: { class: 'my-2' } %>
+  <%= f.input :kind_id, as: :select, collection: @kinds, 
+                          label_method: :name_kind, value_method: :id,
+                          include_blank: false, input_html: { class: 'my-2' } %>
+  <div class='my-2'>
+    <%= f.association :departments, collection: @departments, 
+                      as: :check_boxes, group_method: :department_products, 
+                      label_method: :name_department, item_wrapper_class: 'inline', 
+                      input_html: { class: 'my-2 mx-2', multiple: true } %>
+  </div>
+	<%= f.button :submit, submit, class: 'btn btn-outline-primary my-2' %>
+	<%= render partial: 'shared/cancel_button', 
+    locals: { path: supply_managers_kind_path(f.object) } if f.object.persisted? %>
+<% end %>

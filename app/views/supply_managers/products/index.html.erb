@@ -1,0 +1,19 @@
+<section>
+  <% provide :page_title, i18n_model_name(@products, count: 2) %>
+  <% currently_at i18n_model_name(@products, count: 2) %>
+
+  <h1><%= i18n_model_name(@products, count: 2) %></h1>
+  <% if @products.try(:any?) %>
+    <% if current_user.role == 'supply manager' %>
+      <p>
+        <%= link_to t('link.add_new', model: i18n_model_name(Product.new).downcase), 
+          new_supply_managers_product_path, class: 'btn btn-outline-primary my-2' %>
+      </p>
+    <% end %>
+
+    <%= render partial: 'supply_managers/products/product', collection: @products %>
+
+  <% else %>
+    <%= render 'blank' %>
+  <% end %>
+</section>

@@ -1,0 +1,18 @@
+<section>
+  <% provide :page_title, @product.name %>
+  <% currently_at %>
+  <h1 class='my-4'><%= i18n_model_name(product) %></h1>
+
+  <%= render partial: 'shared/go_back_button', locals: { path: supply_managers_products_path } %>
+  <%= render partial: 'supply_managers/products/product', locals: { product: @product } %>
+
+  <% if current_user.role == 'supply manager' %>
+    <div class="btn-group mt-2" role="group">
+      <%= link_to t('link.edit', model: i18n_model_name(@product).downcase), 
+        edit_supply_managers_product_path(@product), class: 'btn btn-outline-primary my-2 mx-2' %>
+      <%= button_to t('submit.delete', model: i18n_model_name(@product).downcase), 
+        supply_managers_product_path(@product), method: :delete, class: 'btn btn-outline-primary my-2 mx-2', 
+        :onclick => "return confirm('Are you sure?')", :remote => true %>
+    </div>
+  <% end %>
+</section>

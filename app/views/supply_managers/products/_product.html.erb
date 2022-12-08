@@ -1,0 +1,26 @@
+<section class='card'>
+  <div class='card-body'>
+    <p class='card-text'>
+      <strong><%= attribute_model(product.kind, :name_kind) %>&nbsp;</strong>
+      <%= product.kind.name_kind %>
+    </p>
+    <p class='card-text'>
+      <strong><%= attribute_model(product.departments.first, :name_department) %>&nbsp;</strong>
+      <% product.departments.collect do |department| %>
+        <%= department.name_department %>
+      <% end %>
+    </p>
+    <p class='card-text'>
+      <strong><%= attribute_model(product, :name) %>&nbsp;</strong>
+      <%= product.name %>
+    </p>
+    <p class='card-text'>
+      <strong><%= attribute_model(product, :description) %>&nbsp;</strong>
+      <%= simple_format(product.description) %>
+    </p>
+    <p class='card-text'>
+      <%= link_to t('link.show', model: i18n_model_name(product).downcase), 
+        supply_managers_product_path(product), class: 'btn btn-outline-primary my-2' if action_name == 'index' %>
+    </p>
+  </div>
+</section>
