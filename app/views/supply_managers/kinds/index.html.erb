@@ -1,0 +1,33 @@
+<section>
+  <% provide :page_title, i18n_model_name(@kinds, count: 2) %>
+  <% currently_at i18n_model_name(@kinds, count: 2) %>
+
+  <h1><%= i18n_model_name(@kinds, count: 2) %></h1>
+  
+  <% if @kinds.try(:any?) %>
+    <% if current_user.role == 'supply manager' %>
+      <p>
+        <%= link_to t('link.add_new', model: i18n_model_name(Kind.new).downcase), 
+          new_supply_managers_kind_path, class: 'btn btn-outline-primary my-2' %>
+      </p>
+    <% end %>
+    <% @kinds.each do |kind| %>
+      <article class='card col-6 my-2'>
+        <div class='card-body'>
+          <p class='card-text'><%= kind.name_kind %></p>
+          <% if current_user.role == 'supply manager' %>
+            <div class="btn-group mt-2" role="group">
+              <%= link_to t('link.edit', model: i18n_model_name(kind).downcase), 
+                edit_supply_managers_kind_path(kind), class: "btn btn-outline-dark me-2" %>
+              <%= button_to t('submit.delete', model: i18n_model_name(kind).downcase), 
+                supply_managers_kind_path(kind), method: :delete, class: "btn btn-outline-dark me-2", 
+                :onclick => "return confirm('Are you sure?')", :remote => true %>
+            </div>
+          <% end %>
+        </dib>
+      </article>
+    <% end %>
+  <% else %>
+    <%= render 'blank' %>
+  <% end %>
+</section>
