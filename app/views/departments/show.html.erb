@@ -1,0 +1,27 @@
+<section>
+  <% provide :page_title, @department.name_department %>
+  <% currently_at %>
+
+  <%= render partial: 'shared/go_back_button', locals: { path: departments_path } %>
+  <h1 class='my-4'><%= @department.name_department %></h1>
+  <p><%= simple_format(@department.description) %></p>
+
+  <section>
+    <% if @products.try(:any?) %>
+      <h3 class='my-3'><%= i18n_model_name(@products, count: 2) %></h3>
+      <ul>
+        <% @products.each do |product| %>
+          <li><%= link_to product.name, product_path(product), class: 'link' %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </section>
+  <% if current_user.role == 'admin' %>
+    <div class="btn-group mt-2" role="group">
+      <%= link_to t('link.edit', model: i18n_model_name(@department).downcase), 
+        edit_admin_department_path(@department), class: "btn btn-outline-dark me-2" %>
+      <%= button_to t('submit.delete', model: i18n_model_name(@department).downcase), admin_department_path(@department), 
+        method: :delete, class: "btn btn-outline-dark me-2", :onclick => "return confirm('Are you sure?')", :remote => true %>
+    </div>
+  <% end %>
+</section>
