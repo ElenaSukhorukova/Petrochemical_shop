@@ -1,2 +1,0 @@
-class PostCompanyAddress < CompanyAddress
-end

@@ -1,2 +1,0 @@
-class LegalCompanyAddress < CompanyAddress
-end
