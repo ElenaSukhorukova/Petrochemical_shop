@@ -1,0 +1,8 @@
+<section class='col-7'>
+  <% provide :page_title, t('page.edit', model: i18n_model_name(@admin).downcase) %>
+  <% currently_at %>
+
+  <h1 class='md-4'><%= t('page.edit', model: i18n_model_name(@admin).downcase) %></h1>
+  <%= render partial: 'user/employees/form',  locals: { model: @admin, method: :put, 
+    submit: t('submit.edit', model: i18n_model_name(@admin).downcase), path: admin_path(@admin) } %>
+</section>
