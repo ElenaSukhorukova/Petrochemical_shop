@@ -1,0 +1,2 @@
+class PostAddress < Address
+end
