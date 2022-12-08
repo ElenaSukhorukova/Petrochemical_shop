@@ -1,6 +1,6 @@
 require "test_helper"
 
-class SupplierNonResidentTest < ActiveSupport::TestCase
+class CompanyContactsControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class CompanyNonResidentTest < ActiveSupport::TestCase
+class AccountNumberTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

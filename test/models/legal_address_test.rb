@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PostCompanyAddressTest < ActiveSupport::TestCase
+class LegalAddressTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

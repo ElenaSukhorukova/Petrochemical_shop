@@ -1,6 +1,6 @@
 require "test_helper"
 
-class OwnCompanyResidentTest < ActiveSupport::TestCase
+class CompanyTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
