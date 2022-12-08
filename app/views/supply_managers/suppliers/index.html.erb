@@ -1,0 +1,87 @@
+<section>
+  <% provide :page_title, i18n_model_name(@resident_suppliers, count: 2) %>
+  <% currently_at i18n_model_name(@resident_suppliers, count: 2) %>
+
+  <h1><%= i18n_model_name(@resident_suppliers, count: 2) %></h1>
+
+  <% if @resident_suppliers.try(:any?) %>
+    <% if current_user.role == 'supply manager' %>
+      <div class="btn-group mt-2" role="group">
+        <%= link_to t('link.add_new', model: i18n_model_name(Supplier.new).downcase), 
+           new_supplier_path, class: 'btn btn-outline-primary my-2 mx-2' %>
+        <%= link_to t('link.all_items', model: i18n_model_name(Bank.new, count: 2).downcase), 
+          banks_path, class: 'btn btn-outline-primary my-2 mx-2' %>
+      </div>
+    <% end %>
+    <section>
+      <h2 class='my-4'><%= attribute_model(@resident_suppliers.last, :residents) %></h2>
+      <table id='customers'>
+        <thead>
+          <tr>
+            <th><%= attribute_model(@resident_suppliers.last, :legal_name_company) %></th>
+            <th><%= attribute_model(@resident_suppliers.last, :inn) %></th>
+            <th><%= attribute_model(@resident_suppliers.last, :phone_number) %></th>
+            <th><%= attribute_model(@resident_suppliers.last, :email) %></th>
+            <th><%= attribute_model(@resident_suppliers.last, :description) %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @resident_suppliers.each do |supplier| %>
+            <tr>
+              <td><%= supplier.legal_name_company %></td>
+              <td><%= supplier.inn %></td>
+              <td><%= supplier.phone_number %></td>
+              <td><%= supplier.email %></td>
+              <td><%= supplier.description %></td>
+              <td>
+                <% if current_user.role == 'supply manager' %>
+                  <div class="btn-group mt-2" role="group">
+                    <%= link_to t('submit.simple_show'), supplier_path(supplier), 
+                      class: "btn btn-outline-primary me-2 btn-sm" %>
+                  </div>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </section>
+    <% if @not_resident_suppliers.try(:any?) %>    
+      <section>
+        <h2 class='my-4'><%= attribute_model(@not_resident_suppliers.last, :residents) %></h2>
+        <table id='customers'>
+          <thead>
+            <tr>
+              <th><%= attribute_model(@not_resident_suppliers.last, :legal_name_company) %></th>
+              <th><%= attribute_model(@not_resident_suppliers.last, :inn) %></th>
+              <th><%= attribute_model(@not_resident_suppliers.last, :phone_number) %></th>
+              <th><%= attribute_model(@not_resident_suppliers.last, :email) %></th>
+              <th><%= attribute_model(@not_resident_suppliers.last, :description) %></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @not_resident_suppliers.each do |supplier| %>
+              <tr>
+                <td><%= supplier.legal_name_company %></td>
+                <td><%= supplier.inn %></td>
+                <td><%= supplier.phone_number %></td>
+                <td><%= supplier.email %></td>
+                <td><%= supplier.description %></td>
+                <td>
+                  <% if current_user.role == 'supply manager' %>
+                    <%= link_to t('submit.simple_show'), supplier_path(supplier), 
+                      class: "btn btn-outline-dark me-2 btn-sm" %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </section>
+    <% end %>
+  <% else %>
+    <%= render 'blank' %>
+  <% end %>
+</section>

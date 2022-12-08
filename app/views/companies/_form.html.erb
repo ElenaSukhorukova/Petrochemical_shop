@@ -1,0 +1,62 @@
+<%= simple_form_for model, method: method do |f| %>
+  <%= f.label :resident %>
+  <%= f.collection_radio_buttons :resident, [[true, 'Yes'], [false, 'No']], :first, :last,
+                                input_html: { class: 'my-2 px-2'} %>
+  <%= f.input :legal_name_company, input_html: { class: 'my-2'} %>
+  <%= f.input :inn, input_html: { class: 'my-2'} %>
+  <%= f.input :kpp, input_html: { class: 'my-2'} %>
+  <%= f.input :ogrn, input_html: { class: 'my-2'} %>
+  <%= f.input :okpo, input_html: { class: 'my-2'} %>
+  <%= f.input :okved, input_html: { class: 'my-2'} %>
+  <%= f.input :full_name_director, input_html: { class: 'my-2'} %>
+  <%= f.input :phone_number, input_html: { class: 'my-2'} %>
+  <%= f.input :email, input_html: { class: 'my-2'} %>
+  <%= f.input :description, input_html: { class: 'my-2'} %>
+  
+  <h4 class='my-3'><%= t('page.company.requisites') %></h4>
+	<%= f.simple_fields_for :account_numbers do |account_number| %>
+    <%= account_number.input :account_number %>
+    <%= account_number.input :alias %>
+    <%= account_number.input :bank_id, as: :select, collection: @banks,
+                          label_method: :bank_name, value_method: :id,
+                          include_blank: false, input_html: { class: 'my-2' } %>
+	<% end %>
+
+  <h4 class='my-3'><%= i18n_model_name(LegalAddress.new) %></h4>
+	<%= f.simple_fields_for :legal_address, include_id: false do |legal_address| %>
+    <%= legal_address.input :post_nubmer %>
+    <%= legal_address.input :country_id, as: :select, collection: @countries,
+                          label_method: :country_name, value_method: :id,
+                          include_blank: false, input_html: { class: 'my-2', 
+                            value: Country.find_by(id: 145) } %>
+    <%= legal_address.input :region_id, as: :select, collection: @regions,
+                          label_method: :region_name, value_method: :id,
+                          include_blank: false, input_html: { class: 'my-2' } %>
+    <%= legal_address.input :town %>
+    <%= legal_address.input :street %>
+    <%= legal_address.input :number_building %>
+    <%= legal_address.input :description %> 
+	<% end %>
+
+  <h4 class='my-3'><%= i18n_model_name(PostAddress.new) %></h4>
+	<%= f.simple_fields_for :post_address, include_id: false do |post_address| %>
+    <%= post_address.input :post_nubmer %>
+    <%= post_address.input :country_id, as: :select, collection: @countries,
+                          label_method: :country_name, value_method: :id,
+                          include_blank: false, input_html: { class: 'my-2',
+                            value: Country.find_by(id: 145) } %>
+    <%= post_address.input :region_id, as: :select, collection: @regions,
+                          label_method: :region_name, value_method: :id,
+                          include_blank: false, input_html: { class: 'my-2' } %>
+    <%= post_address.input :town %>
+    <%= post_address.input :street %>
+    <%= post_address.input :number_building %>
+    <%= post_address.input :description %> 
+	<% end %>
+
+  <%= f.button :submit, submit, class: 'btn btn-outline-primary my-2' %>
+	<%= render partial: 'shared/cancel_button', 
+    locals: { path: path } if f.object.persisted? %>
+<% end %>
+
+
