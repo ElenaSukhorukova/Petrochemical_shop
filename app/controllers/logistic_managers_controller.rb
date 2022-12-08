@@ -1,2 +1,0 @@
-class LogisticManagersController < ApplicationController
-end
