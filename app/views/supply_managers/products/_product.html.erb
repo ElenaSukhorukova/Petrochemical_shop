@@ -1,21 +1,21 @@
-<section class='card'>
+<section class='card my-2 col'>
   <div class='card-body'>
     <p class='card-text'>
-      <strong><%= attribute_model(product.kind, :name_kind) %>&nbsp;</strong>
+      <strong><%= attribute_model(product, :name) %></strong>
+      <%= product.name %>
+    </p>
+    <p class='card-text'>
+      <strong><%= attribute_model(product.kind, :name_kind) %></strong>
       <%= product.kind.name_kind %>
     </p>
     <p class='card-text'>
-      <strong><%= attribute_model(product.departments.first, :name_department) %>&nbsp;</strong>
+      <strong><%= attribute_model(product.departments.first, :name_department) %></strong>
       <% product.departments.collect do |department| %>
         <%= department.name_department %>
       <% end %>
     </p>
     <p class='card-text'>
-      <strong><%= attribute_model(product, :name) %>&nbsp;</strong>
-      <%= product.name %>
-    </p>
-    <p class='card-text'>
-      <strong><%= attribute_model(product, :description) %>&nbsp;</strong>
+      <strong><%= attribute_model(product, :description) %></strong>
       <%= simple_format(product.description) %>
     </p>
     <p class='card-text'>
