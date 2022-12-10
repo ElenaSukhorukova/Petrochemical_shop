@@ -2,5 +2,5 @@
   <%= f.input :name_kind, input_html: { class: 'my-2'} %>
 	<%= f.button :submit, submit, class: 'btn btn-outline-primary my-2' %>			
 	<%= render partial: 'shared/cancel_button', 
-    locals: { path: supply_managers_kind_path(f.object) } if f.object.persisted? %>
+    locals: { path: kinds_path } if f.object.persisted? %>
 <% end %>

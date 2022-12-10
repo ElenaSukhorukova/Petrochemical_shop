@@ -2,8 +2,8 @@
   <% provide :page_title, t('page.new', model: i18n_model_name(@kind).downcase) %>
   <% currently_at %>
 
-  <%= render partial: 'shared/go_back_button', locals: { path: root_path } %>
+  <%= render partial: 'shared/go_back_button', locals: { path: kinds_path } %>
   <h1 class='md-4'><%= t('page.new', model: i18n_model_name(@kind).downcase) %></h1>
-  <%= render partial: 'supply_managers/kinds/form',  locals: { model: @kind, method: :post, url: supply_managers_kinds_path,
-    submit: t('submit.create', model: i18n_model_name(@kind).downcase) } %>
+  <%= render partial: 'supply_managers/kinds/form',  locals: { model: @kind, method: :post,
+    url: supply_managers_kinds_path, submit: t('submit.create', model: i18n_model_name(@kind).downcase) } %>
 </section>
