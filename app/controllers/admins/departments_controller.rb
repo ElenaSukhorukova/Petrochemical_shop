@@ -1,7 +1,6 @@
 class Admins::DepartmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :define_department!, except: %i[new create]
-  before_action :user_admin?
 
   def new
     @department = Department.new
@@ -38,14 +37,7 @@ class Admins::DepartmentsController < ApplicationController
   end
 
   private
-
-    def user_admin?
-      unless current_user.role == 'admin'
-        redirect_to root_path,
-          danger: I18n.t('flash.not_permit')
-      end
-    end
-
+  
     def define_department!
       @department = Department.find(params[:id])
     end
@@ -53,4 +45,6 @@ class Admins::DepartmentsController < ApplicationController
     def department_params
       params.require(:department).permit(:name_department, :description)
     end
+
+
 end
