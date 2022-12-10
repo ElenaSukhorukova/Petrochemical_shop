@@ -1,0 +1,7 @@
+<section>
+  <% provide :page_title, i18n_model_name(@cheif) %>
+  <% currently_at t('navbar.profile', user: current_user.employee.full_name) %>
+
+  <%= render partial: 'user/employees/employee', locals: { employee: @cheif, 
+    edit_path: edit_cheif_path(@cheif), delete_path: cheif_path(@cheif) } %>
+</section>
