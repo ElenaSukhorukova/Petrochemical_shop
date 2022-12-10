@@ -1,0 +1,34 @@
+<section>
+  <% provide :page_title, @container.name_container %>
+  <% currently_at %>
+  <h1 class='my-4'><%= @container.name_container %></h1>
+
+  <%= render partial: 'shared/go_back_button', locals: { path: containers_path } %>
+  <section class='card'>
+    <div class='card-body'>
+      <p class='card-text'>
+        <strong><%= attribute_model(@container, :length) %></strong>
+        <%= @container.length %>
+        <strong><%= attribute_model(@container, :height) %></strong>
+        <%= @container.height %>
+        <strong><%= attribute_model(@container, :width) %></strong>
+        <%= @container.width %>
+        <strong><%= attribute_model(@container, :weight) %></strong>
+        <%= @container.weight %>
+      </p>
+      <p class='card-text'>
+        <strong><%= attribute_model(@container, :description) %></strong>
+        <%= simple_format(@container.description) %>
+      </p>
+      <% if define_permition? %>
+        <div class="btn-group mt-2" role="group">
+          <%= link_to t('link.edit', model: i18n_model_name(@container).downcase), 
+            edit_container_path(@container), class: 'btn btn-outline-primary my-2 mx-2' %>
+          <%= button_to t('submit.delete', model: i18n_model_name(@container).downcase), 
+            container_path(@container), method: :delete, class: 'btn btn-outline-primary my-2 mx-2', 
+            :onclick => "return confirm('Are you sure?')", :remote => true %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+</section>

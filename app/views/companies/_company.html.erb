@@ -1,0 +1,112 @@
+<div class='card-body ps-4 py-4'>
+  <p class='card-text px-2'>
+    <strong><%= attribute_model(company, :legal_name_company) %></strong>
+    <%= company.legal_name_company %>
+  </p>
+  <% if company.inn %>
+    <p class='card-text px-2'>
+      <strong><%= attribute_model(company, :inn) %></strong>
+      <%= company.inn %>
+    </p>
+    <p class='card-text px-2'>
+      <strong><%= attribute_model(company, :kpp) %></strong>
+      <%= company.kpp %>
+    </p>
+    <p class='card-text px-2'>
+      <strong><%= attribute_model(company, :ogrn) %></strong>
+      <%= company.ogrn %>
+    </p>
+    <p class='card-text px-2'>
+      <strong><%= attribute_model(company, :okpo) %></strong>
+      <%= company.okpo %>
+    </p>
+    <p class='card-text px-2'>
+      <strong><%= attribute_model(company, :okved) %></strong>
+      <%= company.okved %>
+    </p>
+  <% end %>
+  <p class='card-text px-2'>
+    <strong><%= attribute_model(company, :full_name_director) %></strong>
+    <%= company.full_name_director %>
+  </p>
+  <p class='card-text px-2'>
+    <strong><%= attribute_model(company, :phone_number) %></strong>
+    <%= company.phone_number %>
+  </p>
+  <p class='card-text px-2'>
+    <strong><%= attribute_model(company, :email) %></strong>
+    <%= company.email %>
+  </p>
+  <p class='card-text px-2'>
+    <strong><%= attribute_model(company, :description) %></strong>
+    <%= company.description %>
+  </p>
+  <p class='card-text px-2'>
+    <strong><%= attribute_model(company, :resident) %></strong>
+    <%= company.resident %>
+  </p>
+  <h4 class='my-3 underline'><%= i18n_model_name(company.legal_address) %></h4>
+  <p class='card-text px-2'>
+    <%= company.legal_address.post_number %>,
+    <%= company.legal_address.country.country_name %>,
+    <%= company.legal_address.region.region_name %>,
+    <%= company.legal_address.town %>,
+    <%= company.legal_address.street %>,
+    <%= company.legal_address.number_building %>
+    <p><%= company.legal_address.description %></p>
+  </p>
+
+  <h4 class='my-3 underline'><%= i18n_model_name(company.post_address) %></h4>
+  <p class='card-text px-2'>
+    <%= company.post_address.post_number %>,
+    <%= company.post_address.country.country_name %>,
+    <%= company.post_address.region.region_name %>,
+    <%= company.post_address.town %>,
+    <%= company.post_address.street %>,
+    <%= company.post_address.number_building %>
+    <p><%= company.post_address.description %></p>
+  </p>
+  <h4 class='my-3 underline'><%= t('page.company.requisites') %></h4>
+  <p class='card-text px-2'>
+    <% company.account_numbers.each do |number| %>
+      <% if number.alias.present? %>
+        <p class='card-text px-2'>
+          <strong><%= attribute_model(number, :alias) %></strong>
+          <%= number.alias %>
+        </p>
+      <% end %>
+      <p class='card-text px-2'>
+        <strong><%= attribute_model(number, :account_number) %></strong>
+        <%= number.account_number %>
+      </p>
+
+      <p class='card-text px-2'>
+        <strong><%= attribute_model(number.bank, :bank_name) %></strong>
+        <%= number.bank.bank_name %>
+      </p>
+      <% if number.bank.resident == true %>
+        <p class='card-text px-2'>
+          <strong><%= attribute_model(number.bank, :correspondent_account_number) %></strong>
+          <%= number.bank.correspondent_account_number %>
+        </p>
+        <p class='card-text px-2'>
+          <strong><%= attribute_model(number.bank, :bik) %></strong>
+          <%= number.bank.bik %>
+        </p>
+      <% else %>
+        <p class='card-text px-2'>
+          <strong><%= attribute_model(number.bank, :iban) %></strong>
+          <%= number.bank.iban %>
+        </p>
+        <p class='card-text px-2'>
+          <strong><%= attribute_model(number.bank, :swift) %></strong>
+          <%= number.bank.swift %>
+        </p>
+      <% end %>
+    <% end %>
+  </p>
+  <% if company.company_contacts.any? %>
+    <h4 class='my-3 underline'><%= i18n_model_name(company.company_contacts.last, count: 2) %></h4>
+    <%= render partial: 'company_contacts/company_contact', collection: company.company_contacts %>
+  <% end %>
+</div>    

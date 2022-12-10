@@ -1,0 +1,21 @@
+<%= simple_form_for model, method: method do |f| %>
+  <%= f.input :name_container, input_html: { class: 'my-2'} %>
+  <div class='row row-cols-4'>
+    <div class='col'>
+      <%= f.input :height, input_html: { class: 'my-2'} %>
+    </div>
+    <div class='col'>
+      <%= f.input :length, input_html: { class: 'my-2'} %>
+    </div>
+    <div class='col'>
+      <%= f.input :width, input_html: { class: 'my-2'} %>
+    </div>
+    <div class='col'>
+      <%= f.input :weight, input_html: { class: 'my-2'} %>
+    </div>
+  </div>
+  <%= f.input :description, input_html: { class: 'my-2'} %>
+	<%= f.button :submit, submit, class: 'btn btn-outline-primary my-2' %>
+	<%= render partial: 'shared/cancel_button', 
+    locals: { path: container_path(f.object) } if f.object.persisted? %>
+<% end %>

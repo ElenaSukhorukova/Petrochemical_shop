@@ -1,0 +1,46 @@
+<section>
+  <% provide :page_title, i18n_model_name(@containers, count: 2) %>
+  <% currently_at i18n_model_name(@containers, count: 2) %>
+
+  <h1><%= i18n_model_name(@containers, count: 2) %></h1>
+  <% if @containers.try(:any?) %>
+    <% if define_permition? %>
+      <p>
+        <%= link_to t('link.add_new', model: i18n_model_name(Container.new).downcase), 
+          new_container_path, class: 'btn btn-outline-primary my-2' %>
+      </p>
+    <% end %>
+    <div class='row row-cols-2'>
+      <% @containers.each do |container| %>
+        <article class='card my-2 col'>
+          <div class='card-body'>
+            <p class='card-text'>
+              <strong><%= attribute_model(container, :name_container) %></strong>
+              <%= container.name_container %>
+            </p>
+            <p class='card-text'>
+              <strong><%= attribute_model(container, :height) %></strong>
+              <%= container.height.round(2) %>
+              <strong><%= attribute_model(container, :length) %></strong>
+              <%= container.length.round(2) %>
+              <strong><%= attribute_model(container, :width) %></strong>
+              <%= container.width.round(2) %>
+              <strong><%= attribute_model(container, :weight) %></strong>
+              <%= container.weight.round(2) %>
+            </p>
+            <p class='card-text'>
+              <p><strong><%= attribute_model(container, :description) %></strong></p>
+              <%= container.description %>
+            </p> 
+            <p class='card-text'>
+              <%= link_to t('link.show', model: i18n_model_name(container).downcase), 
+                supply_managers_product_path(container), class: 'btn btn-outline-primary my-2' %>
+            </p>
+          </div>
+        </article>
+      <% end %>
+    </div>
+  <% else %>
+    <%= render 'blank' %>
+  <% end %>
+</section>
