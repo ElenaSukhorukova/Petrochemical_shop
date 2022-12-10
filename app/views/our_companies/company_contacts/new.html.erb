@@ -1,0 +1,8 @@
+<%= turbo_frame_tag dom_id(@contact) do %>
+  <section class='col-7'>
+    <%= render partial: 'shared/go_back_button', locals: { path: contactable_path(@contact.contactable_id), } %>
+    <h3 class='my-4'><%= t('page.new', model: i18n_model_name(@contact).downcase) %></h1>
+    <%= render partial: 'company_contacts/form',  locals: { model: [@contactable, @contact], method: :post, 
+      submit: t('submit.create', model: i18n_model_name(@contact).downcase) } %>
+  </section>
+<% end %>

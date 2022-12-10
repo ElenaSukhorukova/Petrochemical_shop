@@ -1,0 +1,38 @@
+<p class='card-text px-2'>
+  <strong><%= attribute_model(company_contact, :full_name) %></strong>
+  <%= company_contact.full_name %>
+</p>
+<p class='card-text px-2'>
+  <strong><%= attribute_model(company_contact, :position) %></strong>
+  <%= company_contact.position %>
+</p>
+<p class='card-text px-2'>
+  <strong><%= attribute_model(company_contact, :email) %></strong>
+  <%= company_contact.email %>
+</p>
+<p class='card-text px-2'>
+  <strong><%= attribute_model(company_contact, :personal_phone_number) %></strong>
+  <%= company_contact.personal_phone_number %>
+</p>
+<p class='card-text px-2'>
+  <strong><%= attribute_model(company_contact, :work_phone_number) %></strong>
+  <%= company_contact.work_phone_number %>
+</p>
+<p class='card-text px-2'>
+  <strong><%= attribute_model(company_contact, :additional_phone_number) %></strong>
+  <%= company_contact.additional_phone_number %>
+</p>
+<p class='card-text px-2'>
+  <strong><%= attribute_model(company_contact, :description) %></strong>
+  <%= company_contact.description %>
+</p>
+<% if define_permition? %>
+  <div class="btn-group my-2" role="group">
+    <%= link_to t('submit.simple_edit'), edit_company_contact_path(company_contact), 
+      class: 'btn btn-outline-primary my-2 mx-2 btn-sm' %>
+    <%= button_to t('submit.simple_delete'), company_contact_path(company_contact), 
+      method: :delete, class: 'btn btn-outline-primary my-2 mx-2 btn-sm', 
+      :onclick => "return confirm('Are you sure?')", :remote => true %>
+  </div>
+<% end %>
+<p class='line'></p>
