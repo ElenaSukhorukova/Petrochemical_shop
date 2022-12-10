@@ -22,8 +22,11 @@ class Company < ApplicationRecord
   has_one :post_address, dependent: :destroy
   has_one :legal_address, dependent: :destroy
   has_many :delivery_addresses, dependent: :destroy
-  has_many :company_contacts, dependent: :destroy
+  has_many :company_contacts, as: :contactable, dependent: :destroy
 
   accepts_nested_attributes_for :account_numbers, allow_destroy: true
   accepts_nested_attributes_for :legal_address, :post_address, update_only: true
+  
+  has_one :our_companies, class_name: 'Reception', foreign_key: :our_company_id, dependent: :destroy
+  has_one :suppliers, class_name: 'Reception', foreign_key: :supplier_id, dependent: :destroy  
 end
