@@ -1,8 +1,7 @@
 class Address < ApplicationRecord
-  validates :post_nubmer, :town, :street, :number_building, presence: true
-  validates :post_nubmer, length: { is: 6 }, if: :is_russia?
+  validates :post_number, :town, :street, :number_building, presence: true
+  validates :post_number, length: { is: 6 }, if: :is_russia?
 
-  belongs_to :company
   belongs_to :country
   belongs_to :region
 
