@@ -3,8 +3,7 @@ class User::AdminsController < ApplicationController
   before_action :authenticate_user!
   before_action :define_user!
   before_action :define_admin!, only: %i[edit update destroy]
-  before_action :define_departments!, only: %i[new create]
-  after_action :change_full_name, only: %i[create update]
+  before_action :define_departments!, except: %i[show destroy]
 
   def show
     @admin = Admin.find(params[:id])
@@ -15,9 +14,11 @@ class User::AdminsController < ApplicationController
   end
 
   def create
-    @admin = @user.admin_build(admin_params)
+    @admin = Admin.new(admin_params)
+    @dmin.user = @user.admin
 
     if @admin.save
+      change_full_name(@admin)
       redirect_to admin_path(@admin),
         success: I18n.t('flash.new', model: i18n_model_name(@admin).downcase)
     else
@@ -30,6 +31,7 @@ class User::AdminsController < ApplicationController
 
   def update
     if @admin.update(admin_params)
+      change_full_name(@admin)
       redirect_to admin_path(@admin),
         success: I18n.t('flash.update', model: i18n_model_name(@admin).downcase)
     else
