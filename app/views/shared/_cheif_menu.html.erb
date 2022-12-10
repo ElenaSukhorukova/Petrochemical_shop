@@ -1,0 +1,33 @@
+<%= provide :cheif_menu do %>
+  <aside>
+    <nav class="nav card mt-2">
+      <div class='container card-body'>
+        <ul class="navbar-nav text-center">      
+          <% if current_user.employee.present? %>
+            <li class="nav-item card-title line">
+              <%= nav_tab_right t('navbar.profile', user: current_user.employee.full_name), 
+                cheif_path(current_user.employee), class: "nav-link", current_page: current_page %>
+            </li>
+          <% else %>
+            <li class="nav-item card-title line">
+              <%= nav_tab_right t('navbar.new_profile'), new_cheif_path, 
+                class: "nav-link", current_page: current_page %>
+            </li>
+          <% end %>
+          <li class="nav-item card-title line">
+            <%= nav_tab_right i18n_model_name(OurCompany.new, count: 2), 
+              our_companies_path, class: "nav-link", current_page: current_page %>
+          </li>   
+          <li class="nav-item card-title line">
+            <%= nav_tab_right i18n_model_name(Department.new, count: 2), 
+              departments_path, class: "nav-link", current_page: current_page %>
+          </li>
+          <li class="nav-item card-title line">
+            <%= nav_tab_right i18n_model_name(Supplier.new, count: 2), 
+              suppliers_path, class: "nav-link", current_page: current_page %>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </aside>
+<% end %>

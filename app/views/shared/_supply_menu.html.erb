@@ -10,11 +10,15 @@
             </li>
             <li class="nav-item card-title line">
               <%= nav_tab_right i18n_model_name(Kind.new, count: 2), 
-                supply_managers_kinds_path, class: "nav-link", current_page: current_page %>
+                kinds_path, class: "nav-link", current_page: current_page %>
             </li>
             <li class="nav-item card-title line">
               <%= nav_tab_right i18n_model_name(Product.new, count: 2), 
                 supply_managers_products_path, class: "nav-link", current_page: current_page %>
+            </li>
+            <li class="nav-item card-title line">
+              <%= nav_tab_right i18n_model_name(Container.new, count: 2), 
+                containers_path, class: "nav-link", current_page: current_page %>
             </li>
             <li class="nav-item card-title line">
               <%= nav_tab_right i18n_model_name(Department.new, count: 2), 
@@ -23,6 +27,10 @@
             <li class="nav-item card-title line">
               <%= nav_tab_right i18n_model_name(Supplier.new, count: 2), 
                 suppliers_path, class: "nav-link", current_page: current_page %>
+            </li>
+            <li class="nav-item card-title line">
+              <%= nav_tab_right i18n_model_name(Reception.new, count: 2), 
+                receptions_path, class: "nav-link", current_page: current_page %>
             </li>
           <% elsif user_signed_in? && !current_user.employee.present? %>
             <li class="nav-item card-title line">
