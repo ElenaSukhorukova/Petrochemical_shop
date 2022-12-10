@@ -1,6 +1,7 @@
 class Container < ApplicationRecord
-  has_many :container_products, dependent: :destroy
-  has_many :products, through: :container_products, dependent: :destroy
-  has_many :order_packagings, dependent: :destroy
+  validates :name_container, uniqueness: true, presence: true, length: { minimum: 3 }
+  validates :length, :height, :width, :weight, presence: true, numericality: true
 
+  has_many :line_items
+  has_many :line_item_containers
 end
