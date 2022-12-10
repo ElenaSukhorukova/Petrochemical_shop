@@ -34,10 +34,26 @@ module ApplicationHelper
   end
 
   def define_menu
-    @menus = { 'admin' => :admin_menu, 'supply manager' => :supply_menu }
+    @menus = { 'admin' => :admin_menu, 'supply manager' => :supply_menu, 'cheif' => :cheif_menu }
 
     if user_signed_in?
       @menus[current_user.role]
     end
+  end
+
+  def define_permition?
+    permition = {
+      'departments' => %w[admin],
+      'kinds' => %w[supply\ manager],
+      'products' => %w[supply\ manager],
+      'containers' => %w[supply\ manager],
+      'suppliers' => %w[supply\ manager],
+      'banks' => %w[cheif client logistic\ manager sales\ manager supply\ manager],
+      'company_contacts' => %w[supply\ manager],
+      'our_companies' => %w[cheif],
+      'receptions' => %w[supply\ manager]
+    }
+
+    permition[controller_name].include?(current_user.role)
   end
 end

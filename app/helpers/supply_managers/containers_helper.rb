@@ -1,0 +1,2 @@
+module SupplyManagers::ContainersHelper
+end
