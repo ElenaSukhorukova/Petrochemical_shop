@@ -8,7 +8,7 @@ class CreateCompanyContacts < ActiveRecord::Migration[7.0]
       t.string :work_phone_number
       t.string :additional_phone_number
       t.text :description
-      t.references :company, foreign_key: true
+      t.references :contactable, polymorphic: true
 
       t.timestamps
     end

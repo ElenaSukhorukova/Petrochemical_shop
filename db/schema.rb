@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_07_182705) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_10_174737) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,7 +26,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_182705) do
   end
 
   create_table "addresses", force: :cascade do |t|
-    t.string "post_nubmer"
     t.string "town"
     t.string "street"
     t.string "number_building"
@@ -37,6 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_182705) do
     t.datetime "updated_at", null: false
     t.bigint "country_id"
     t.bigint "region_id"
+    t.string "post_number"
     t.index ["company_id"], name: "index_addresses_on_company_id"
     t.index ["country_id"], name: "index_addresses_on_country_id"
     t.index ["region_id"], name: "index_addresses_on_region_id"
@@ -78,10 +78,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_182705) do
     t.string "work_phone_number"
     t.string "additional_phone_number"
     t.text "description"
-    t.bigint "company_id"
+    t.string "contactable_type"
+    t.bigint "contactable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["company_id"], name: "index_company_contacts_on_company_id"
+    t.index ["contactable_type", "contactable_id"], name: "index_company_contacts_on_contactable"
+  end
+
+  create_table "containers", force: :cascade do |t|
+    t.string "name_container"
+    t.decimal "length"
+    t.decimal "height"
+    t.decimal "width"
+    t.decimal "weight"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "countries", force: :cascade do |t|
@@ -131,6 +143,36 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_182705) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "line_item_containers", force: :cascade do |t|
+    t.bigint "container_id"
+    t.string "unit"
+    t.decimal "quantity"
+    t.decimal "price"
+    t.string "source_type"
+    t.bigint "source_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "sum"
+    t.index ["container_id"], name: "index_line_item_containers_on_container_id"
+    t.index ["source_type", "source_id"], name: "index_line_item_containers_on_source"
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.decimal "quantity"
+    t.decimal "price"
+    t.string "source_type"
+    t.bigint "source_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "product_id"
+    t.bigint "container_id"
+    t.string "unit"
+    t.integer "sum"
+    t.index ["container_id"], name: "index_line_items_on_container_id"
+    t.index ["product_id"], name: "index_line_items_on_product_id"
+    t.index ["source_type", "source_id"], name: "index_line_items_on_source"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -138,6 +180,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_182705) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["kind_id"], name: "index_products_on_kind_id"
+  end
+
+  create_table "receptions", force: :cascade do |t|
+    t.bigint "our_company_id"
+    t.bigint "supplier_id"
+    t.boolean "confirmation", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["our_company_id"], name: "index_receptions_on_our_company_id"
+    t.index ["supplier_id"], name: "index_receptions_on_supplier_id"
   end
 
   create_table "regions", force: :cascade do |t|
@@ -168,8 +220,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_182705) do
   add_foreign_key "addresses", "companies"
   add_foreign_key "addresses", "countries"
   add_foreign_key "addresses", "regions"
-  add_foreign_key "company_contacts", "companies"
   add_foreign_key "department_products", "departments"
   add_foreign_key "department_products", "products"
+  add_foreign_key "line_item_containers", "containers"
+  add_foreign_key "line_items", "containers"
+  add_foreign_key "line_items", "products"
+  add_foreign_key "receptions", "companies", column: "our_company_id"
+  add_foreign_key "receptions", "companies", column: "supplier_id"
   add_foreign_key "regions", "countries"
 end
