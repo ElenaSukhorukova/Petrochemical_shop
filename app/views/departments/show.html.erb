@@ -6,7 +6,7 @@
   <h1 class='my-4'><%= @department.name_department %></h1>
   <p><%= simple_format(@department.description) %></p>
 
-  <section>
+  <article>
     <% if @products.try(:any?) %>
       <h3 class='my-3'><%= i18n_model_name(@products, count: 2) %></h3>
       <ul>
@@ -15,8 +15,19 @@
         <% end %>
       </ul>
     <% end %>
-  </section>
-  <% if current_user.role == 'admin' %>
+  </article>
+  <article>
+    <% if @employees.try(:any?) %>
+      <h3 class='my-3'><%= i18n_model_name(@employees, count: 2) %></h3>
+      <ul>
+        <% @employees.each do |employee| %>
+          <li><%= employee.full_name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </article>
+  
+  <% if define_permition? %>
     <div class="btn-group mt-2" role="group">
       <%= link_to t('link.edit', model: i18n_model_name(@department).downcase), 
         edit_admin_department_path(@department), class: "btn btn-outline-dark me-2" %>

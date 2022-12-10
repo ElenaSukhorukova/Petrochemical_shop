@@ -1,0 +1,14 @@
+<%= simple_form_for model, method: method do |f| %>
+  <%= f.input :full_name, input_html: { class: 'my-2'} %>
+  <%= f.input :position, input_html: { class: 'my-2'} %>
+  <%= f.input :email, input_html: { class: 'my-2'} %>
+  <%= f.input :personal_phone_number, input_html: { class: 'my-2'} %>
+  <%= f.input :work_phone_number, input_html: { class: 'my-2'} %>
+  <%= f.input :additional_phone_number, input_html: { class: 'my-2'} %>
+  <%= f.input :description, input_html: { class: 'my-2'} %>
+  <%= f.button :submit, submit, class: 'btn btn-outline-primary my-2' %>
+	<%= render partial: 'shared/cancel_button', 
+    locals: { path: path } if f.object.persisted? %>
+<% end %>
+
+

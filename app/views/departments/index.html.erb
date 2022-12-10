@@ -3,7 +3,7 @@
   <% currently_at i18n_model_name(@departments, count: 2) %>
 
   <h1><%= i18n_model_name(@departments, count: 2) %></h1>
-  <% if current_user.role == 'admin' %>
+  <% if define_permition? %>
     <p>
       <%= link_to t('link.add_new', model: i18n_model_name(Department.new).downcase), 
         new_admin_department_path, class: 'btn btn-outline-primary my-2' %>
@@ -13,7 +13,7 @@
     <ul>
       <% @departments.each do |department| %>
         <li>
-        <article>
+        <article class='my-4'>
           <h3><%= department.name_department %></h3>
           <p><%= simple_format(department.description) %></p>
           <%= link_to t('link.show', model: i18n_model_name(@departments)), 
