@@ -4,20 +4,24 @@ en:
       product:
         one: 'Product'
         other: 'Products'
-      admin:
-        one: 'Admin'
       department:
         one: 'Department'
         other: 'Departments'
       kind:
         one: 'Kind'
         other: 'Kinds'
-      bank:
-        one: 'Bank'
-        other: 'Banks'
-      supplier:
-        one: 'Supplier'
-        other: 'Suppliers'
+      container:
+        one: 'Container'
+        other: 'Containers'
+      employee:
+        one: 'Employee'
+        other: 'Employees'
+      admin:
+        one: 'Admin'
+        other: 'Admins'
+      cheif:
+        one: 'Cheif'
+        other: 'Cheifs'
       country:
         one: 'Country'
         other: 'Countries'
@@ -30,16 +34,28 @@ en:
       post_address:
         one: 'Post address'
         other: 'Post addresses'
+      bank:
+        one: 'Bank'
+        other: 'Banks'
       account_number:
         one: 'Account number'
         other: 'Account numbers'
       company_contact:
         one: "Company's contact"
         other: "Company's contacts"
+      supplier:
+        one: 'Supplier'
+        other: 'Suppliers'
+      our_company:
+        one: 'Our company'
+        other: 'Our companies'
+      reception:
+        one: 'Reception'
+        other: 'Receptions'
     attributes:
       product:
-        name: "Product's name:"
-        description: 'Description: '
+        name: "Product's name"
+        description: 'Description'
       employee:
         full_name: 'Full name:'
         gemder: 'Gender:'
@@ -47,7 +63,7 @@ en:
         type: 'Position:'
         personal_phone_number: "Personal number:"
         work_phone_number: 'Work phone number:'
-        additional_number: 'additional number:'
+        additional_number: 'Additional number:'
         about: 'About:'
       department:
         name_department: "Department's name:"
@@ -62,7 +78,7 @@ en:
         iban: 'IBAN'
         not_residents: 'Not residents:'
         residents: 'Residents:'
-      supplier:
+      company:
         legal_name_company: 'Legal name company:'
         inn: 'INN:'
         kpp: 'KPP:'
@@ -80,14 +96,8 @@ en:
         country_name: "Country's name"
       region:
         region_name: "Region's name"
-      legal_address:
-        post_nubmer: 'Post number'
-        town: 'Town'
-        street: 'Street'
-        number_building: "Building's number"
-        description: 'Description'
-      post_address:
-        post_nubmer: 'Post number'
+      address:
+        post_number: 'Post number'
         town: 'Town'
         street: 'Street'
         number_building: "Building's number"
@@ -103,6 +113,22 @@ en:
         work_phone_number: 'Work phone number:'
         additional_phone_number: 'Additional phone number:'
         description: 'Description'
+      reception:
+        our_company: 'Our company'
+        supplier: 'Supplier'
+        confirmation: 'Confirmation'
+      container:
+        name_container: 'Container name'
+        length: 'Length:'
+        height: 'Height:'
+        width: 'Width:'
+        weight: 'Weight:'
+        description: 'Description:'
+      line_item:
+        quantity: 'Quantity'
+        price: 'Price'
+        unit: 'Unit'
+        sum: 'Sum'
       user:
         confirmation_sent_at: 'Confirmation sent at'
         confirmation_token: 'Confirmation token'
@@ -127,6 +153,7 @@ en:
         unconfirmed_email: 'Unconfirmed email'
         unlock_token: 'Unlock token'
         updated_at: 'Updated at'
+  currency: "$"
   submit:
     create: "Create a new %{model}"
     edit: "Edit the %{model}"
@@ -136,7 +163,9 @@ en:
     simple_edit: 'Edit'
     simple_delete: 'Delete'
     simple_show: 'Show'
-    send: "Send a %{model}"
+    simple_add: 'Add'
+    add: "Add a %{model}"
+    confirm: 'Confirm'
   link:
     add_new: "Add a new %{model}"
     edit: "Edit the %{model}"
