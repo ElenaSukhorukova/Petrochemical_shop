@@ -1,13 +1,11 @@
 class SupplyManagers::SuppliersController < ApplicationController
   include ChangeFullName
   before_action :authenticate_user!
-  before_action :user_has_permission?
   before_action :define_supplier!, except: %i[index new create]
   before_action :define_variables!, except: %i[index show destroy]
 
   def index
-    @resident_suppliers = Supplier.all.where(resident: true).order(legal_name_company: :asc)
-    @not_resident_suppliers = Supplier.all.where(resident: false).order(legal_name_company: :asc)
+    @suppliers = Supplier.all.order(legal_name_company: :asc)
   end
 
   def show
@@ -55,14 +53,7 @@ class SupplyManagers::SuppliersController < ApplicationController
 
   private
 
-    def user_has_permission?
-      unless current_user.role == 'supply manager'
-        redirect_to root_path,
-          danger: I18n.t('flash.not_permit')
-      end
-    end
-
-    def define_supplier!
+  def define_supplier!
       @supplier = Supplier.find(params[:id])
     end
 
@@ -81,9 +72,9 @@ class SupplyManagers::SuppliersController < ApplicationController
       params.require(:supplier).permit(:legal_name_company, :inn, :kpp, :ogrn, :okpo, :okved, 
                                       :full_name_director, :phone_number, :email, :description, :resident, 
                                       account_numbers_attributes: [:id, :account_number, :alias, :bank_id],
-                                      legal_address_attributes: [:post_nubmer, :town, :street, :number_building,
+                                      legal_address_attributes: [:post_number, :town, :street, :number_building,
                                         :description, :country_id, :region_id ], 
-                                      post_address: [:post_nubmer, :town, :street, :number_building,
+                                      post_address_attributes: [:post_number, :town, :street, :number_building,
                                         :description, :country_id, :region_id ])
     end
 end
