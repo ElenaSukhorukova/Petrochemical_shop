@@ -1,11 +1,10 @@
 class SupplyManagers::ProductsController < ApplicationController
   before_action :authenticate_user!
-  before_action :user_has_permission?
   before_action :define_product!, except: %i[index new create]
   before_action :define_variables!, except: %i[index show destroy]
 
   def index
-    @products = Product.all
+    @products = Product.all.order(name: :asc)
   end
 
   def show
@@ -46,14 +45,6 @@ class SupplyManagers::ProductsController < ApplicationController
   end
 
   private
-
-    def user_has_permission?
-      unless current_user.role == 'supply manager'
-        redirect_to root_path,
-          warning: I18n.t('flash.not_permit')
-      end
-    end
-
     def define_product!
       @product = Product.find(params[:id])
     end
