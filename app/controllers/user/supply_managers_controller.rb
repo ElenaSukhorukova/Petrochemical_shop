@@ -4,7 +4,6 @@ class User::SupplyManagersController < ApplicationController
   before_action :define_user!
   before_action :define_supply_manager!, only: %i[edit update destroy]
   before_action :define_departments!, except: %i[show destroy]
-  after_action :change_full_name, only: %i[create update]
 
   def show
     @supply_manager = SupplyManager.find(params[:id])
@@ -16,9 +15,10 @@ class User::SupplyManagersController < ApplicationController
 
   def create
     @supply_manager = SupplyManager.new(supply_manager_params)
-    @supply_manager.user = @user
-
+    supply_manager.user = @user
+    
     if @supply_manager.save
+      change_full_name(@supply_manager)
       redirect_to supply_manager_path(@supply_manager),
         success: I18n.t('flash.new', model: i18n_model_name(@supply_manager).downcase)
     else
@@ -31,6 +31,7 @@ class User::SupplyManagersController < ApplicationController
 
   def update
     if @supply_manager.update(supply_manager_params)
+      change_full_name(@supply_manager)
       redirect_to supply_manager_path(@supply_manager),
         success: I18n.t('flash.update', model: i18n_model_name(@supply_manager).downcase)
     else
