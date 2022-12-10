@@ -1,11 +1,6 @@
 class SupplyManagers::KindsController < ApplicationController
   before_action :authenticate_user!
-  before_action :user_has_permission?
-  before_action :define_kind!, except: %i[index new create]
-
-  def index
-    @kinds = Kind.all
-  end
+  before_action :define_kind!, except: %i[new create]
 
   def new
     @kind = Kind.new
@@ -15,7 +10,7 @@ class SupplyManagers::KindsController < ApplicationController
     @kind = Kind.new(kind_params)
 
     if @kind.save
-      redirect_to supply_managers_kinds_path,
+      redirect_to kinds_path,
       success: I18n.t('flash.new', model: i18n_model_name(@kind).downcase)
     else
       render :new, status: :unprocessable_entity
@@ -27,7 +22,7 @@ class SupplyManagers::KindsController < ApplicationController
 
   def update
     if @kind.update(kind_params)
-      redirect_to supply_managers_kinds_path,
+      redirect_to kinds_path,
         success: I18n.t('flash.update', model: i18n_model_name(@kind).downcase)
     else 
       render :edit, status: :unprocessable_entity
@@ -36,19 +31,12 @@ class SupplyManagers::KindsController < ApplicationController
 
   def destroy
     if @kind.destroy
-      redirect_to supply_managers_kinds_path,
+      redirect_to kinds_path,
         success: I18n.t('flash.destroy', model: i18n_model_name(@kind).downcase)
     end
   end
 
   private
-
-    def user_has_permission?
-      unless current_user.role == 'supply manager'
-        redirect_to root_path,
-          warning: I18n.t('flash.not_permit')
-      end
-    end
 
     def define_kind!
       @kind = Kind.find(params[:id])
