@@ -1,6 +1,6 @@
 <p>
   <%= t('page.blank', model: i18n_model_name(Supplier.new).downcase) %>
-  <% if current_user.role == 'supply manager' %>
+  <% if define_permition? %>
     <p>
       <%= link_to t('link.add_new', model: i18n_model_name(Supplier.new).downcase), 
          new_supplier_path, class: 'btn btn-outline-primary my-2' %>

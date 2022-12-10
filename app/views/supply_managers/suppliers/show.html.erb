@@ -4,27 +4,27 @@
 
   <%= render partial: 'shared/go_back_button', locals: { path: suppliers_path } %>
   <h1 class='my-4'><%= @supplier.legal_name_company %></h1>
-  <div class="btn-group mt-2" role="group">
-    <%= link_to t('submit.simple_edit'), edit_supplier_path(@supplier), 
-      class: "btn  btn-outline-primary me-2" %>
-    <%= button_to t('submit.simple_delete'), supplier_path(@supplier), 
-      method: :delete, class: "btn btn-outline-primary me-2", 
-      :onclick => "return confirm('Are you sure?')", :remote => true %>
-  </div>
+    <% if define_permition? %>
+      <div class="btn-group mt-2" role="group">
+        <%= link_to t('submit.simple_edit'), edit_supplier_path(@supplier), 
+          class: "btn  btn-outline-primary me-2" %>
+        <%= button_to t('submit.simple_delete'), supplier_path(@supplier), 
+          method: :delete, class: "btn btn-outline-primary me-2", 
+          :onclick => "return confirm('Are you sure?')", :remote => true %>
+      </div>
+    <% end %>
   <% unless @supplier.company_contacts.any? %>
     <p class='warning my-3'><%= t('page.company.blank_contacts') %></p>
   <% end %>
-    <p>
-      <%= turbo_frame_tag dom_id(CompanyContact.new) do %>
-        <%= link_to t('link.add_new', model: i18n_model_name(CompanyContact.new).downcase), 
-          new_company_company_contact_path(@supplier), class: "btn btn-outline-primary btn-sm" %>
-      <% end %>
-    </p>
-  <section class='card col-8 my-2'>
-    <% if @supplier.resident == true %>
-      <%= render 'resident', supplier: @supplier %>
-    <% else %>
-      <%= render 'not_resident', supplier: @supplier %>
+    <% if define_permition? %>
+      <p>
+        <%= turbo_frame_tag dom_id(CompanyContact.new) do %>
+          <%= link_to t('link.add_new', model: i18n_model_name(CompanyContact.new).downcase), 
+            new_supplier_company_contact_path(@supplier), class: "btn btn-outline-primary my-2" %>
+        <% end %>
+      </p>
     <% end %>
+  <section class='card col-8 my-2'>
+    <%= render 'companies/company', company: @supplier %>
   </section>
 </section>
