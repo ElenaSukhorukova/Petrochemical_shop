@@ -1,0 +1,49 @@
+<section>
+  <% provide :page_title, i18n_model_name(@our_companies, count: 2) %>
+  <% currently_at i18n_model_name(@our_companies, count: 2) %>
+
+  <h1><%= i18n_model_name(@our_companies, count: 2) %></h1>
+  <% if @our_companies.try(:any?) %>
+    <% if define_permition? %>
+      <div class="btn-group mt-2" role="group">
+        <%= link_to t('link.add_new', model: i18n_model_name(OurCompany.new).downcase), 
+           new_our_company_path, class: 'btn btn-outline-primary my-2 mx-2' %>
+        <%= link_to t('link.all_items', model: i18n_model_name(Bank.new, count: 2).downcase), 
+          banks_path, class: 'btn btn-outline-primary my-2 mx-2' %>
+      </div>
+    <% end %>
+    <section>
+      <table id='customers'>
+        <thead>
+          <tr>
+            <th><%= attribute_model(@our_companies.last, :legal_name_company) %></th>
+            <th><%= attribute_model(@our_companies.last, :inn) %></th>
+            <th><%= attribute_model(@our_companies.last, :phone_number) %></th>
+            <th><%= attribute_model(@our_companies.last, :email) %></th>
+            <th><%= attribute_model(@our_companies.last, :description) %></th>
+            <th><%= attribute_model(@our_companies.last, :resident) %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @our_companies.each do |company| %>
+            <tr>
+              <td><%= company.legal_name_company %></td>
+              <td><%= company.inn %></td>
+              <td><%= company.phone_number %></td>
+              <td><%= company.email %></td>
+              <td><%= company.description %></td>
+              <td><%= company.resident %></td>
+              <td>
+                <%= link_to t('submit.simple_show'), our_company_path(company), 
+                  class: "btn btn-outline-primary me-2 btn-sm" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </section>
+  <% else %>
+    <%= render 'blank' %>
+  <% end %>
+</section>

@@ -1,0 +1,9 @@
+<section class='col-7'>
+  <% provide :page_title, t('page.new', model: i18n_model_name(@our_company).downcase) %>
+  <% currently_at %>
+
+  <%= render partial: 'shared/go_back_button', locals: { path: our_companies_path } %>
+  <h1 class='my-4'><%= t('page.new', model: i18n_model_name(@our_company).downcase) %></h1>
+  <%= render partial: 'companies/form',  locals: { model: @our_company, method: :post, 
+    submit: t('submit.create', model: i18n_model_name(@our_company).downcase) } %>
+</section>

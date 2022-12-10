@@ -1,0 +1,30 @@
+<section>
+  <% provide :page_title, @our_company.legal_name_company %>
+  <% currently_at %>
+
+  <%= render partial: 'shared/go_back_button', locals: { path: our_companies_path } %>
+  <h1 class='my-4'><%= @our_company.legal_name_company %></h1>
+    <% if define_permition? %>
+      <div class="btn-group mt-2" role="group">
+        <%= link_to t('submit.simple_edit'), edit_our_company_path(@our_company), 
+          class: "btn  btn-outline-primary me-2" %>
+        <%= button_to t('submit.simple_delete'), our_company_path(@our_company), 
+          method: :delete, class: "btn btn-outline-primary me-2", 
+          :onclick => "return confirm('Are you sure?')", :remote => true %>
+      </div>
+    <% end %>
+  <% unless @our_company.company_contacts.any? %>
+    <p class='warning my-3'><%= t('page.company.blank_contacts') %></p>
+  <% end %>
+    <% if define_permition? %>
+      <p>
+        <%= turbo_frame_tag dom_id(CompanyContact.new) do %>
+          <%= link_to t('link.add_new', model: i18n_model_name(CompanyContact.new).downcase), 
+            new_our_company_company_contact_path(@our_company), class: "btn btn-outline-primary my-2" %>
+        <% end %>
+      </p>
+    <% end %>
+  <section class='card col-8 my-2'>
+    <%= render 'companies/company', company: @our_company %>
+  </section>
+</section>

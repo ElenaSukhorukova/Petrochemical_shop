@@ -1,0 +1,9 @@
+<p>
+  <%= t('page.blank', model: i18n_model_name(OurCompany.new).downcase) %>
+  <% if define_permition? %>
+    <p>
+      <%= link_to t('link.add_new', model: i18n_model_name(OurCompany.new).downcase), 
+        new_our_company_path, class: 'btn btn-outline-primary my-2' %>
+    </p>
+  <% end %>
+</p>
