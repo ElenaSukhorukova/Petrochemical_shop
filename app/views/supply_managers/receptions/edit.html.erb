@@ -1,0 +1,4 @@
+<%= turbo_frame_tag dom_id(@reception) do %>
+  <%= render partial: 'form', locals: { model: @reception, method: :put, 
+    submit: t('submit.edit', model: i18n_model_name(@reception).downcase) } %>
+<% end %>

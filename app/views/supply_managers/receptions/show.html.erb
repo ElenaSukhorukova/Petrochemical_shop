@@ -1,0 +1,114 @@
+<section>
+  <% provide :page_title, i18n_model_name(@reception) %>
+  <% currently_at %>
+  <table id='customers'>
+    <thead>
+      <tr>
+        <th colspan="6">
+          <h5 class='my-3'><%= i18n_model_name(@reception) %>&nbsp;&#x2116;<%= @reception.id %></h5>
+          <%= render 'confirmation' %>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="1">
+          <p><%= @reception.our_company.legal_name_company %></p>
+          <p style='line-height: 0px;'>
+            <%= @reception.our_company.legal_address.post_number %>,
+            <%= @reception.our_company.legal_address.country.country_name %>,
+            <%= @reception.our_company.legal_address.region.region_name %>,
+            <%= @reception.our_company.legal_address.town %>,
+            <%= @reception.our_company.legal_address.street %>,
+            <%= @reception.our_company.legal_address.number_building %>
+          </p>
+        </td>
+        <td colspan="5">
+          <% if @reception.our_company.inn  %>
+            <strong><%= attribute_model(@reception.our_company, :inn) %></strong>
+            <%= @reception.our_company.inn %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="1">
+          <p><%= @reception.supplier.legal_name_company %></p>
+          <p style='line-height: 0px;'>
+            <%= @reception.supplier.legal_address.post_number %>,
+            <%= @reception.supplier.legal_address.country.country_name %>,
+            <%= @reception.supplier.legal_address.region.region_name %>,
+            <%= @reception.supplier.legal_address.town %>,
+            <%= @reception.supplier.legal_address.street %>,
+            <%= @reception.supplier.legal_address.number_building %>
+          </p>
+        </td>
+        <td colspan="5">
+          <% if @reception.our_company.inn  %>
+            <strong><%= attribute_model(@reception.supplier, :inn) %></strong>
+            <%= @reception.supplier.inn %>
+          <% end %>
+        </td>
+      </tr>
+      <% if @line_items.present? %>
+      <tr class='second_title'>
+        <td>
+          <%= attribute_model(@line_items.last.product, :name) %>
+        </td>
+        <td>
+          <%= attribute_model(@line_items.last, :unit) %>
+        </td>
+        <td>
+          <%= attribute_model(@line_items.last.container, :name_container) %>
+        </td>
+        <td>
+          <%= attribute_model(@line_items.last, :quantity) %>
+        </td>
+        <td>
+          <%= attribute_model(@line_items.last, :price) %>
+        </td>
+        <td>
+          <%= attribute_model(@line_items.last, :sum) %>
+        </td>
+      </tr>
+        <% @line_items.each do |line| %>
+          <tr>
+            <td>
+              <%= line.product.name %>
+            </td>
+            <td class='text-center'>
+              <%= line.unit %>
+            </td>
+            <td class='text-center'>
+              <%= line.container.name_container %>
+            </td>
+            <td class='text-center'>
+              <%= line.quantity %>
+            </td>
+            <td class='text-center'>
+              <%= line.price %>
+            </td>
+            <td class='text-center'>
+              <%= line.sum %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+        <tr>
+          <td colspan="6">
+            <%= render partial: 'line_items/form',  locals: { model: @line_item, 
+              url: reception_reception_line_items_path(@reception), method: :post, 
+              submit: t('submit.simple_add') } %>
+          </td>
+        </tr>
+      <tr>
+        <td colspan="6">
+          <%= render partial: 'line_item_containers/form',  locals: { model: @line_item_container, 
+            url: reception_reception_line_item_containers_path(@reception), method: :post, 
+            submit: t('submit.simple_add') } %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <%= render 'edit_buttons' %>
+</section> 

@@ -1,0 +1,45 @@
+<section>
+  <% provide :page_title, i18n_model_name(@receptions, count: 2) %>
+  <% currently_at i18n_model_name(@receptions, count: 2) %>
+
+  <h1><%= i18n_model_name(@receptions, count: 2) %></h1>
+  <% if @receptions.try(:any?) %>
+    <% if define_permition? %>
+      <p>
+        <%= turbo_frame_tag dom_id(Reception.new) do %>
+          <%= link_to t('link.add_new', model: i18n_model_name(Reception.new).downcase), 
+            new_reception_path, class: 'btn btn-outline-primary my-2' %>
+        <% end %>
+      </p>
+    <% end %>
+    <section>
+      <table id='customers'>
+        <thead>
+          <tr>
+            <th><%= attribute_model(@receptions.last, :id) %></th>
+            <th><%= attribute_model(@receptions.last, :our_company) %></th>
+            <th><%= attribute_model(@receptions.last, :supplier) %></th>
+            <th><%= attribute_model(@receptions.last, :confirmation) %></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @receptions.each do |reception| %>
+            <tr>
+              <td><%= reception.id %></td>
+              <td><%= reception.supplier.legal_name_company %></td>
+              <td><%= reception.our_company.legal_name_company %></td>
+              <td><%= reception.confirmation %></td>
+              <td>
+                <%= link_to t('submit.simple_show'), reception_path(reception), 
+                  class: "btn btn-outline-primary me-2 btn-sm" %>
+              </td>  
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </section>
+  <% else %>
+    <%= render 'blank' %>
+  <% end %>
+</section>

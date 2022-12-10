@@ -1,0 +1,12 @@
+<%= simple_form_for model, method: method do |f| %>
+  <%= f.input :our_company_id, as: :select, collection: @our_companies, 
+                          label_method: :legal_name_company, value_method: :id,
+                          include_blank: false, input_html: { class: 'my-2' } %>
+
+  <%= f.input :supplier_id, as: :select, collection: @suppliers, 
+                          label_method: :legal_name_company, value_method: :id,
+                          include_blank: false, input_html: { class: 'my-2' } %>
+	<%= f.button :submit, submit, class: 'btn btn-outline-primary my-2' %>
+	<%= render partial: 'shared/cancel_button', 
+    locals: { path: supply_managers_product_path(f.object) } if f.object.persisted? %>
+<% end %>

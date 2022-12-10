@@ -1,0 +1,11 @@
+<%= turbo_frame_tag dom_id(Reception.new) do %>
+  <p>
+    <%= t('page.blank', model: i18n_model_name(Reception.new).downcase) %>
+    <% if define_permition? %>
+      <p>
+        <%= link_to t('link.add_new', model: i18n_model_name(Reception.new).downcase), 
+          new_reception_path, class: 'btn btn-outline-primary my-2' %>
+      </p>
+    <% end %>
+  </p>
+<% end %>
