@@ -1,2 +1,0 @@
-class QualityProduct < ApplicationRecord
-end
