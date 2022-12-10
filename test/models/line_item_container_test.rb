@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ContainerProductTest < ActiveSupport::TestCase
+class LineItemContainerTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

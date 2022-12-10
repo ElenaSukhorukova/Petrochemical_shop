@@ -1,6 +1,6 @@
 require "test_helper"
 
-class EntranceTest < ActiveSupport::TestCase
+class ReceptionTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
