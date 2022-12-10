@@ -1,2 +1,0 @@
-class Chief < Employee
-end

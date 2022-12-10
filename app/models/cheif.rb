@@ -1,0 +1,2 @@
+class Cheif < Employee
+end
