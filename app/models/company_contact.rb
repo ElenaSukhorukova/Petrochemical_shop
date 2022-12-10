@@ -8,5 +8,5 @@ class CompanyContact < ApplicationRecord
     }
   validates :email, presence: true, format: { with: /([\w\-\.])+@([\w\-\.]+\.)+([a-z]{2,4})/ }
 
-  belongs_to :company
+  belongs_to :contactable, polymorphic: true
 end
